@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.28-0ubuntu0.14.04.1)
 # Database: test
-# Generation Time: 2017-09-06 23:49:57 +0000
+# Generation Time: 2017-09-08 18:15:11 +0000
 # ************************************************************
 
 
@@ -18,6 +18,19 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+# Dump of table accounts
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `accounts`;
+
+CREATE TABLE `accounts` (
+  `account` varchar(15) NOT NULL DEFAULT '',
+  `username` varchar(31) NOT NULL DEFAULT '',
+  PRIMARY KEY (`account`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 
 # Dump of table actions
@@ -40,6 +53,33 @@ VALUES
 
 /*!40000 ALTER TABLE `actions` ENABLE KEYS */;
 UNLOCK TABLES;
+
+
+# Dump of table contents
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `contents`;
+
+CREATE TABLE `contents` (
+  `key` varchar(15) NOT NULL DEFAULT '',
+  `content` text NOT NULL,
+  `localization` varchar(31) NOT NULL DEFAULT '',
+  PRIMARY KEY (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table days
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `days`;
+
+CREATE TABLE `days` (
+  `reoccurrence` varchar(15) NOT NULL DEFAULT '',
+  `day` tinyint(2) NOT NULL,
+  PRIMARY KEY (`reoccurrence`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 
 # Dump of table frequencies
@@ -70,18 +110,28 @@ VALUES
 UNLOCK TABLES;
 
 
-# Dump of table reoccurrence_days
+# Dump of table localizations
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `reoccurrence_days`;
+DROP TABLE IF EXISTS `localizations`;
 
-CREATE TABLE `reoccurrence_days` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `reoccurrence_id` int(11) unsigned NOT NULL,
-  `day` int(4) unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_reoccurrence_day_reoccurrence` (`reoccurrence_id`),
-  CONSTRAINT `fk_reoccurrence_day_reoccurrence` FOREIGN KEY (`reoccurrence_id`) REFERENCES `reoccurrences` (`id`)
+CREATE TABLE `localizations` (
+  `localization` varchar(31) NOT NULL DEFAULT '',
+  PRIMARY KEY (`localization`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table names
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `names`;
+
+CREATE TABLE `names` (
+  `username` varchar(31) NOT NULL DEFAULT '',
+  `name` varchar(63) NOT NULL DEFAULT '',
+  `cardinality` tinyint(1) NOT NULL,
+  PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -92,18 +142,24 @@ CREATE TABLE `reoccurrence_days` (
 DROP TABLE IF EXISTS `reoccurrences`;
 
 CREATE TABLE `reoccurrences` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `reoccurrence` varchar(15) NOT NULL DEFAULT '',
+  `username` varchar(31) NOT NULL DEFAULT '',
   `amount` float(7,2) NOT NULL DEFAULT '0.00',
-  `user_id` int(11) unsigned NOT NULL,
   `action` varchar(15) NOT NULL DEFAULT '',
-  `frequency` varchar(15) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`),
-  KEY `fk_reoccurrences_user` (`user_id`),
-  KEY `fk_reoccurrences_action` (`action`),
-  KEY `fk_reoccurrences_frequency` (`frequency`),
-  CONSTRAINT `fk_reoccurrences_action` FOREIGN KEY (`action`) REFERENCES `actions` (`name`),
-  CONSTRAINT `fk_reoccurrences_frequency` FOREIGN KEY (`frequency`) REFERENCES `frequencies` (`name`),
-  CONSTRAINT `fk_reoccurrences_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+  `frequency` varchar(15) NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table timezones
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `timezones`;
+
+CREATE TABLE `timezones` (
+  `name` varchar(15) NOT NULL DEFAULT '',
+  `gmt_offset` tinyint(2) unsigned NOT NULL,
+  PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -114,16 +170,11 @@ CREATE TABLE `reoccurrences` (
 DROP TABLE IF EXISTS `transactions`;
 
 CREATE TABLE `transactions` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) unsigned NOT NULL,
-  `amount` float(7,2) unsigned NOT NULL,
-  `post_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `action` varchar(15) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`),
-  KEY `fk_transaction_user` (`user_id`),
-  KEY `fk_transaction_action` (`action`),
-  CONSTRAINT `fk_transaction_action` FOREIGN KEY (`action`) REFERENCES `actions` (`name`),
-  CONSTRAINT `fk_transaction_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+  `username` varchar(31) NOT NULL DEFAULT '',
+  `account` varchar(15) NOT NULL DEFAULT '',
+  `posted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `amount` float(7,2) NOT NULL,
+  `action` varchar(15) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -134,12 +185,11 @@ CREATE TABLE `transactions` (
 DROP TABLE IF EXISTS `users`;
 
 CREATE TABLE `users` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(31) NOT NULL DEFAULT '',
-  `first_name` varchar(31) NOT NULL DEFAULT '',
-  `last_name` varchar(31) DEFAULT NULL,
+  `email` varchar(254) NOT NULL DEFAULT '',
   `password` varchar(31) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
+  `timezone` varchar(15) NOT NULL DEFAULT '',
+  `localization` varchar(31) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
