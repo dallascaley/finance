@@ -5,9 +5,9 @@
 # http://www.sequelpro.com/
 # https://github.com/sequelpro/sequelpro
 #
-# Host: 127.0.0.1 (MySQL 5.6.28-0ubuntu0.14.04.1)
-# Database: test
-# Generation Time: 2017-09-08 18:15:11 +0000
+# Host: 127.0.0.1 (MySQL 5.5.46-0ubuntu0.14.04.2)
+# Database: finances
+# Generation Time: 2017-09-09 17:18:08 +0000
 # ************************************************************
 
 
@@ -26,9 +26,27 @@
 DROP TABLE IF EXISTS `accounts`;
 
 CREATE TABLE `accounts` (
-  `account` varchar(15) NOT NULL DEFAULT '',
+  `name` varchar(15) NOT NULL DEFAULT '',
   `username` varchar(31) NOT NULL DEFAULT '',
-  PRIMARY KEY (`account`)
+  `balance` float(7,2) NOT NULL,
+  `type` varchar(15) NOT NULL DEFAULT '',
+  PRIMARY KEY (`name`,`username`),
+  KEY `fk_accounts_user` (`username`),
+  KEY `fk_accounts_type` (`type`),
+  CONSTRAINT `fk_accounts_type` FOREIGN KEY (`type`) REFERENCES `accounttypes` (`name`),
+  CONSTRAINT `fk_accounts_user` FOREIGN KEY (`username`) REFERENCES `users` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table accounttypes
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `accounttypes`;
+
+CREATE TABLE `accounttypes` (
+  `name` varchar(15) NOT NULL DEFAULT '',
+  PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -62,9 +80,39 @@ DROP TABLE IF EXISTS `contents`;
 
 CREATE TABLE `contents` (
   `key` varchar(15) NOT NULL DEFAULT '',
+  `localization` varchar(31) NOT NULL,
   `content` text NOT NULL,
-  `localization` varchar(31) NOT NULL DEFAULT '',
-  PRIMARY KEY (`key`)
+  PRIMARY KEY (`key`,`localization`),
+  KEY `fk_contents_localization` (`localization`),
+  CONSTRAINT `fk_contents_localization` FOREIGN KEY (`localization`) REFERENCES `localizations` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table dates
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `dates`;
+
+CREATE TABLE `dates` (
+  `reoccurrence` varchar(15) NOT NULL,
+  `date` date NOT NULL,
+  `type` varchar(15) NOT NULL DEFAULT '',
+  PRIMARY KEY (`reoccurrence`,`date`),
+  KEY `fk_dates_type` (`type`),
+  CONSTRAINT `fk_dates_type` FOREIGN KEY (`type`) REFERENCES `datetypes` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table datetypes
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `datetypes`;
+
+CREATE TABLE `datetypes` (
+  `name` varchar(15) NOT NULL DEFAULT '',
+  PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -75,9 +123,10 @@ CREATE TABLE `contents` (
 DROP TABLE IF EXISTS `days`;
 
 CREATE TABLE `days` (
-  `reoccurrence` varchar(15) NOT NULL DEFAULT '',
+  `reoccurrence` varchar(15) NOT NULL,
   `day` tinyint(2) NOT NULL,
-  PRIMARY KEY (`reoccurrence`)
+  PRIMARY KEY (`reoccurrence`,`day`),
+  CONSTRAINT `fk_days_reoccurrence` FOREIGN KEY (`reoccurrence`) REFERENCES `reoccurrences` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -116,8 +165,8 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `localizations`;
 
 CREATE TABLE `localizations` (
-  `localization` varchar(31) NOT NULL DEFAULT '',
-  PRIMARY KEY (`localization`)
+  `name` varchar(31) NOT NULL DEFAULT '',
+  PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -128,10 +177,11 @@ CREATE TABLE `localizations` (
 DROP TABLE IF EXISTS `names`;
 
 CREATE TABLE `names` (
-  `username` varchar(31) NOT NULL DEFAULT '',
   `name` varchar(63) NOT NULL DEFAULT '',
+  `username` varchar(31) NOT NULL,
   `cardinality` tinyint(1) NOT NULL,
-  PRIMARY KEY (`username`)
+  PRIMARY KEY (`username`,`name`,`cardinality`),
+  CONSTRAINT `fk_names_user` FOREIGN KEY (`username`) REFERENCES `users` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -142,11 +192,18 @@ CREATE TABLE `names` (
 DROP TABLE IF EXISTS `reoccurrences`;
 
 CREATE TABLE `reoccurrences` (
-  `reoccurrence` varchar(15) NOT NULL DEFAULT '',
+  `name` varchar(15) NOT NULL DEFAULT '',
   `username` varchar(31) NOT NULL DEFAULT '',
   `amount` float(7,2) NOT NULL DEFAULT '0.00',
   `action` varchar(15) NOT NULL DEFAULT '',
-  `frequency` varchar(15) NOT NULL DEFAULT ''
+  `frequency` varchar(15) NOT NULL DEFAULT '',
+  PRIMARY KEY (`name`,`username`),
+  KEY `fk_reoccurrences_user` (`username`),
+  KEY `fk_reoccurrences_action` (`action`),
+  KEY `fk_reoccurrences_frequency` (`frequency`),
+  CONSTRAINT `fk_reoccurrences_frequency` FOREIGN KEY (`frequency`) REFERENCES `frequencies` (`name`),
+  CONSTRAINT `fk_reoccurrences_action` FOREIGN KEY (`action`) REFERENCES `actions` (`name`),
+  CONSTRAINT `fk_reoccurrences_user` FOREIGN KEY (`username`) REFERENCES `users` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -174,7 +231,13 @@ CREATE TABLE `transactions` (
   `account` varchar(15) NOT NULL DEFAULT '',
   `posted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `amount` float(7,2) NOT NULL,
-  `action` varchar(15) NOT NULL DEFAULT ''
+  `action` varchar(15) NOT NULL DEFAULT '',
+  PRIMARY KEY (`username`,`account`,`posted`),
+  KEY `fk_transactions_account` (`account`),
+  KEY `fk_transactions_action` (`action`),
+  CONSTRAINT `fk_transactions_user` FOREIGN KEY (`username`) REFERENCES `users` (`name`),
+  CONSTRAINT `fk_transactions_account` FOREIGN KEY (`account`) REFERENCES `accounts` (`name`),
+  CONSTRAINT `fk_transactions_action` FOREIGN KEY (`action`) REFERENCES `actions` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -185,11 +248,17 @@ CREATE TABLE `transactions` (
 DROP TABLE IF EXISTS `users`;
 
 CREATE TABLE `users` (
-  `username` varchar(31) NOT NULL DEFAULT '',
+  `name` varchar(31) NOT NULL DEFAULT '',
   `email` varchar(254) NOT NULL DEFAULT '',
   `password` varchar(31) NOT NULL DEFAULT '',
   `timezone` varchar(15) NOT NULL DEFAULT '',
-  `localization` varchar(31) NOT NULL DEFAULT ''
+  `localization` varchar(31) NOT NULL DEFAULT '',
+  PRIMARY KEY (`name`),
+  UNIQUE KEY `email` (`email`),
+  KEY `fk_users_timezone` (`timezone`),
+  KEY `fk_users_localization` (`localization`),
+  CONSTRAINT `fk_users_localization` FOREIGN KEY (`localization`) REFERENCES `localizations` (`name`),
+  CONSTRAINT `fk_users_timezone` FOREIGN KEY (`timezone`) REFERENCES `timezones` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
