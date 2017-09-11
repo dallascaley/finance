@@ -1,7 +1,7 @@
 <head>
 </head>
 <body>
-<form action="register_post">
+<form action="api/user" method="POST">
 	<div>
 		<label>Username</label>
 		<input type="text" name="username"/>
