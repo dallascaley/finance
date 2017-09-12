@@ -1,4 +1,5 @@
 <?php
+require_once(__DIR__ . '/../config.php');
 
 class ormFactory
 {
@@ -38,7 +39,25 @@ class orm
 		echo(mysqli_error($this->db));
 	}
 
+	public function getTimezones() {
+		return $this->selectAll("SELECT * FROM timezones;");
+	}
+
+	private function selectAll($sql) {
+		$result = $this->query($sql);
+
+		if (mysql_num_rows($result) > 0) {
+			$return_array = [];
+			while ($row = mysql_fetch_assoc($result)) {
+				$return_array[] = $row;
+			}
+			return $return_array;
+		} else {
+			return false;
+		}
+	}
+
 	private function query($sql) {
-		mysqli_query($this->db, $sql);
+		return mysqli_query($this->db, $sql);
 	}
 }
