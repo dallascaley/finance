@@ -1,6 +1,5 @@
 <?php
 require_once(__DIR__ . '/orm/orm.php');
-require_once(__DIR__ . '/config.php');
 
 $orm = OrmFactory::getInstance();
 

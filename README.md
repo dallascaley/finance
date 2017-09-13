@@ -33,74 +33,50 @@ Well, first I tried solving my own financial problems by putting this kind of da
 
 More ideas:
 
-1: Can i afford this right now?
-2: How am i doing in general?
-3: How can i save for something i want?
-
+* Can i afford this right now?
+* How am i doing in general?
+* How can i save for something i want?
 
 
 
 ### Installing
 
-A step by step series of examples that tell you have to get a development env running
-
-Say what the step will be
+git clone this into your local repo 
 
 ```
-Give the example
+git clone git@github.com:dallascaley/finance.git
 ```
 
-And repeat
+Find the finance.sql file and run it (manually) in your db, also run each of the files in the migrations folder individually.  Sorry, there is no auto-migration script yet.
 
 ```
-until finished
+mysql -u youruser -p finance < finance.sql
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+set up your etc/hosts file and the vhost files in apache to point to the root of this repo
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
+There are no tests yet
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+This application uses no frameworks at all (yet)
+
+* [Google](http://www.google.com) - Just google that shit
+* [jQuery](https://jquery.com) - jQuery.  It literally does everything you could ever want with respect to javascript.  Nothing else needed.  Period.
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+If you want to contribute to this project go right ahead.  But don't plan on me merging in your crappy changes.  This is my project.  Go away.
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+Version 0.1
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+* **Dallas Caley** - *dallascaley@gmail.com* - [dallascaley.info](http://www.dallascaley.info)
 
 ## License
 
@@ -108,6 +84,5 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
+* All hail the Flying Spaghetti Monster
+* Ramen
