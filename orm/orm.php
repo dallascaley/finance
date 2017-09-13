@@ -26,7 +26,7 @@ class orm
 		} else {
 			$this->db = $link;
 
-			mysqli_select_db($this->db, "finances");
+			mysqli_select_db($this->db, DATABASE);
 		}
  	}
 
@@ -46,9 +46,9 @@ class orm
 	private function selectAll($sql) {
 		$result = $this->query($sql);
 
-		if (mysql_num_rows($result) > 0) {
+		if ($result->num_rows > 0) {
 			$return_array = [];
-			while ($row = mysql_fetch_assoc($result)) {
+			while ($row = $result->fetch_assoc()) {
 				$return_array[] = $row;
 			}
 			return $return_array;

@@ -25,7 +25,7 @@
 						?>
 						<tr>
 							<td><?php echo $timezone['name'] ?></td>
-							<td><?php echo $timezone['gmt_offset'] ?></td>
+							<td><?php echo $timezone['utc_offset'] ?></td>
 						</tr>
 						<?php
 					}
