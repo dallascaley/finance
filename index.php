@@ -1,23 +1,27 @@
-<head>
-</head>
-<body>
-<div>
-	<ul>
-		<li>
-			<a href="login.php">Login</a>
-		</li>
-		<li>
-			<a href="register.php">Register</a>
-		</li>
-		<li>
-			<a href="add_transaction.php">Add Recurring Transaction</a>
-		</li>
-		<li>
-			<a href="display_predicitons.php">Display Predictions</a>
-		</li>
-		<li>
-			<a href="admin.php">Admin</a>
-		</li>
-	</ul>
-</div>
-</body>
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+$full_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$path = array_map('rawurldecode', explode('/', substr($full_path, 1)));
+
+if ($path[0] == 'api') {
+	require_once(__DIR__ . '/api/router.php');
+	
+	$router = new router($path);
+	$router->routeRequest();
+} else {
+	switch (true) {
+		case ($full_path == '/'):
+			include(__DIR__ . '/views/home.php');
+		break;
+		case (file_exists(__DIR__ . '/views/' . $full_path)):
+			include(__DIR__ . '/views/' . $full_path);
+		break;
+		default:
+			include(__DIR__ . '/views/home.php');
+		break;
+	}
+}
+?>

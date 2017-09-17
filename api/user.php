@@ -8,11 +8,25 @@ class user {
 		$this->orm = $orm;
 	}
 
-	public function processRequest() {
-		echo "<br/>Processing Request<br/>";
+	public function create() {
+		echo "<br/>Create User<br/>";
 
-		$params = 'whocares';
+		//$params = 'whocares';
 		
-		$this->orm->createUser($params);
+		//$this->orm->createUser($params);
 	}
+
+	public function read() {
+		echo "<br/>Read User<br/>";
+
+	}
+
+	public function update() {
+		echo "<br/>Update User<br/>";
+	}	
+
+	public function delete() {
+		echo "<br/>Delete User<br/>";
+	}
+
 }

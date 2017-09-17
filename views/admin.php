@@ -1,5 +1,5 @@
 <?php
-	require_once(__DIR__ . '/orm/orm.php');
+	require_once(__DIR__ . '/../orm/orm.php');
 	$orm = OrmFactory::getInstance();
 ?>
 <head>
