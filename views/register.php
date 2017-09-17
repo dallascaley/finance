@@ -1,5 +1,3 @@
-<head>
-</head>
 <body>
 <form action="api/user" method="POST">
 	<div>
