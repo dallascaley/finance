@@ -2,7 +2,7 @@
 
 class apiResponse {
 	
-	public $status;
+	public $status = 'Success';
 	public $errors = [];
 	public $notices = [];
 	public $message = '';

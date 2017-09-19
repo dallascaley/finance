@@ -9,8 +9,11 @@
 		<li><a href="#">Account Maintenance</a></li>
 		<li><a href="#">Site Configuration</a></li>
 		<li>
-			<a href="#">Localization</a>
-			<div id="localizations">
+			<a href="#" id="choose_localization" data-toggle="localizations" class="clicktoggle">Localization</a>
+			<div id="localizations" class="toggle">
+				Current Localizations:
+				<ul>
+				</ul>
 			</div>
 		</li>
 		<li>

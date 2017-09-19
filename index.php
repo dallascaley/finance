@@ -16,22 +16,29 @@
 		<head>
 			<link rel="stylesheet" type="text/css" href="/css/global.css">
 			<link rel="stylesheet" type="text/css" href="/tools/bootstrap/css/bootstrap.min.css">
+			<?php
+				$css_path = str_replace('.php', '.css', $full_path);
+				if (file_exists(__DIR__ . '/css' . $css_path)) {
+					echo '<link rel="stylesheet" type="text/css" href="/css' . $css_path . '">';
+				}
+			?>
 
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 			<script src="/tools/bootstrap/js/bootstrap.min.js"></script>
 			<script src="/js/global.js"></script>
+			<?php
+				$js_path = str_replace('.php', '.js', $full_path);
+				if (file_exists(__DIR__ . '/js' . $js_path)) {
+					echo '<script src="/js' . $js_path . '"></script>';
+				}
+			?>
 		</head>
 		<?php
-		switch (true) {
-			case ($full_path == '/'):
-				include(__DIR__ . '/views/home.php');
-			break;
-			case (file_exists(__DIR__ . '/views/' . $full_path)):
-				include(__DIR__ . '/views/' . $full_path);
-			break;
-			default:
-				include(__DIR__ . '/views/home.php');
-			break;
+		$include = __DIR__ . '/views/home.php';
+
+		if (file_exists(__DIR__ . '/views/' . $full_path)) {
+			$include = __DIR__ . '/views/' . $full_path;
 		}
+		include($include);
 	}
 ?>
