@@ -24,7 +24,7 @@
 					<td>GMT Offset</td>
 				</tr>
 				<?php
-					$timezones = $orm->getTimezones();
+					$timezones = $orm->read('timezones');
 					foreach ($timezones as $timezone) {
 						?>
 						<tr>

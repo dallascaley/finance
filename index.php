@@ -36,7 +36,7 @@
 		<?php
 		$include = __DIR__ . '/views/home.php';
 
-		if (file_exists(__DIR__ . '/views/' . $full_path)) {
+		if ($full_path != '/' && file_exists(__DIR__ . '/views/' . $full_path)) {
 			$include = __DIR__ . '/views/' . $full_path;
 		}
 		include($include);

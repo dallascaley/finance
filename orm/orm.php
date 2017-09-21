@@ -39,12 +39,8 @@ class orm
 		echo(mysqli_error($this->db));
 	}
 
-	public function getLocalizations() {
-		return $this->selectAll("SELECT * FROM localizations;");
-	}
-
-	public function getTimezones() {
-		return $this->selectAll("SELECT * FROM timezones;");
+	public function read($table) {
+		return $this->selectAll("SELECT * FROM $table");
 	}
 
 	private function selectAll($sql) {
