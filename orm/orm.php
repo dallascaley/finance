@@ -39,6 +39,10 @@ class orm
 		echo(mysqli_error($this->db));
 	}
 
+	public function create($table, $value) {
+		return $this->selectAll("SELECT * FROM $table");
+	}
+
 	public function read($table) {
 		return $this->selectAll("SELECT * FROM $table");
 	}

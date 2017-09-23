@@ -14,8 +14,8 @@
 	} else {
 		?>
 		<head>
-			<link rel="stylesheet" type="text/css" href="/css/global.css">
 			<link rel="stylesheet" type="text/css" href="/tools/bootstrap/css/bootstrap.min.css">
+			<link rel="stylesheet" type="text/css" href="/css/global.css">
 			<?php
 				$css_path = str_replace('.php', '.css', $full_path);
 				if (file_exists(__DIR__ . '/css' . $css_path)) {

@@ -14,6 +14,11 @@
 				Current Localizations:
 				<ul>
 				</ul>
+				<input type="button" id="add_localization" value="Add Localization"/>
+				<div id="localization_add_block" class="toggle">
+					<input type="text" name="localization"/><br/>
+					<input type="button" id="submit_localization" value="Submit"/>
+				</div>
 			</div>
 		</li>
 		<li>
