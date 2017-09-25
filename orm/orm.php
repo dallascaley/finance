@@ -39,12 +39,25 @@ class orm
 		echo(mysqli_error($this->db));
 	}
 
-	public function create($table, $value) {
-		return $this->selectAll("SELECT * FROM $table");
+	public function create($table, $values) {
+		$fields = [];
+		$clean_values = [];
+
+		foreach($values as $field => $value) {
+			$fields[] = "`$field`";
+			$clean_values[] = "'" . mysqli_real_escape_string($this->db, $value) . "'";
+		}
+
+		$sql = "INSERT INTO $table (" . implode(',', $fields) . ") VALUES (" . implode(',', $clean_values) . ");";
+		return $this->query($sql);
 	}
 
 	public function read($table) {
 		return $this->selectAll("SELECT * FROM $table");
+	}
+
+	public function getError() {
+		return mysqli_error($this->db);
 	}
 
 	private function selectAll($sql) {

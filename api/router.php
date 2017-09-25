@@ -1,6 +1,7 @@
 <?php
 	require_once(__DIR__ . '/../orm/orm.php');
 	require_once('apiAbstract.php');
+	require_once('apiRequest.php');
 	require_once('apiResponse.php');
 
 	class router {

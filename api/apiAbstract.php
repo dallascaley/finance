@@ -3,10 +3,12 @@
 abstract class apiAbstract {
 	
 	protected $orm;
+	protected $request;
 	protected $response;
 
 	public function __construct($orm) {
 		$this->orm = $orm;
+		$this->request = new apiRequest();
 		$this->response = new apiResponse();
 	}
 
