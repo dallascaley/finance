@@ -60,6 +60,18 @@ class orm
 		return mysqli_error($this->db);
 	}
 
+	public function display($type, $value) {
+		switch ($type) {
+			case 'utc_offset':
+				if ($value > 0) {
+					return substr('0' . $value, -2) . ':00';
+				} else {
+					return '-' . substr('0' . abs($value), -2) . ':00';
+				}
+			break;
+		}
+	}
+
 	private function selectAll($sql) {
 		$result = $this->query($sql);
 
