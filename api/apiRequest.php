@@ -13,7 +13,7 @@ class apiRequest {
 			foreach ($key_value_pairs as $key_value) {
 				$assignment = explode('=', $key_value);
 				if (array_key_exists(1, $assignment)) {
-					$this->params[$assignment[0]] = $assignment[1];
+					$this->params[$assignment[0]] = urldecode($assignment[1]);
 				}
 			}
 		}
