@@ -52,6 +52,52 @@ class orm
 		return $this->query($sql);
 	}
 
+	public function update($table, $values, $key_clause = false) {
+		if (!$key_clause) {
+			$key_clause = $this->getKeyClause($table, $values);
+		}
+
+		$updates = [];
+
+		foreach ($values as $field => $value) {
+			$updates[] = "`$field` = '" . mysqli_real_escape_string($this->db, $value) . "'";
+		}
+
+		$this->query("UPDATE $table SET " . implode(', ', $updates) . " WHERE " . implode('AND', $key_clause));
+	}
+
+	public function createOrUpdate($table, $values) {
+		$key_clause = $this->getKeyClause($table, $values);
+
+		if (count($key_clause) > 0) {
+			$existing_record = $this->query("SELECT * FROM $table WHERE " . implode('AND', $key_clause));
+
+			if ($existing_record->num_rows > 0) {
+				if (array_key_exists('created', $values)) {
+					unset($values['created']);
+				}
+				return $this->update($table, $values, $key_clause);
+			} else {
+				return $this->create($table, $values);
+			}
+		}
+	}
+
+	private function getKeyClause($table, $values) {
+		$keys = $this->query("SHOW KEYS FROM $table WHERE Key_name = 'PRIMARY';");
+
+		$key_clause = [];
+		if ($keys->num_rows > 0) {
+			while ($key = $keys->fetch_assoc()) {
+				if (array_key_exists($key['Column_name'], $values)) {
+					$clean_value = mysqli_real_escape_string($this->db, $values[$key['Column_name']]);
+					$key_clause[] = $key['Column_name'] . " = '" . $clean_value . "' ";
+				}
+			}
+		}
+		return $key_clause;
+	}
+
 	public function read($table) {
 		return $this->selectAll("SELECT * FROM $table");
 	}
