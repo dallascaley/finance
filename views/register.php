@@ -1,3 +1,10 @@
+<?php
+	require_once(__DIR__ . '/../orm/orm.php');
+	$orm = OrmFactory::getInstance();
+
+	require_once(__DIR__ . '/../controller/viewController.php');
+	$controller = new viewController();
+?>
 <body>
 <form action="api/user" method="POST">
 	<div>
@@ -20,6 +27,19 @@
 		<label>Password (verify)</label>
 		<input type="password" name="pass_verify"/>
 	</div>
+	<div>
+		<label>Timezone</label>
+		<select>
+		<?php
+			$timezones = $orm->read('timezones');
+			foreach ($timezones as $timezone) {
+
+				?>
+				<option value="<?php echo $timezone['utc_offset'] ?>"><?php echo $timezone['name'] ?></option>
+				<?php
+			}
+		?>
+		</select>
 	<input type="submit" value="Submit"/>
 </form>
 </body>
