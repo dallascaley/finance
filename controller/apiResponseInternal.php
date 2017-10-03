@@ -8,13 +8,11 @@ class apiResponse {
 	public $message = '';
 
 	public function send() {
-		$response = [
-			'status' => $this->status,
-			'errors' => $this->errors,
-			'notices' => $this->notices,
-			'message' => $this->message
-		];
 
-		echo json_encode($response);
+		if (count($this->errors) > 0) {
+			throw new Exception($this->errors[0]);
+		}
+		
+		return $this->message;
 	}
 }

@@ -33,13 +33,26 @@
 		<?php
 			$timezones = $orm->read('timezones');
 			foreach ($timezones as $timezone) {
-
 				?>
 				<option value="<?php echo $timezone['utc_offset'] ?>"><?php echo $timezone['name'] ?></option>
 				<?php
 			}
 		?>
 		</select>
+	</div>
+	<div>
+		<label>Localization</label>
+		<select>
+		<?php
+			$localizations = $controller->localization('read');
+			foreach ($localizations as $localization) {
+				?>
+				<option value="<?php echo $localization['name'] ?>"><?php echo $localization['name'] ?></option>
+				<?php
+			}
+		?>
+		</select>
+	</div>
 	<input type="submit" value="Submit"/>
 </form>
 </body>

@@ -1,6 +1,6 @@
 <?php
 	require_once(__DIR__ . '/../orm/orm.php');
-	require_once(__DIR__ . '/../api/apiAbstract.php');
+	require_once('apiAbstractInternal.php');
 	require_once('apiRequestInternal.php');
 	require_once('apiResponseInternal.php');
 
@@ -15,28 +15,24 @@
 			$file = __DIR__ . '/../api/' . $name . '.php';
 
 			if (file_exists($file)) {
+				include($file);
+
 				if (class_exists($name)) {
-					$module = new $segment($orm);
 					$method = array_shift($params);
+					$module = new $name($this->orm, $params);
 
-
-					/*
-
-					need to get params into internal api request somehome?!?
-
-					*/
 					switch ($method) {
 						case 'create':
-							$module->create();
+							return $module->create();
 						break;
 						case 'read':
-							$module->create();
+							return $module->read();
 						break;
 						case 'update':
-							$module->update();
+							return $module->update();
 						break;
 						case 'delete':
-							$module->delete();
+							return $module->delete();
 						break;
 					}
 				}

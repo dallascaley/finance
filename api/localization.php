@@ -16,12 +16,12 @@ class localization extends apiAbstract {
 				$this->response->message = $this->orm->getError();
 			}
 		}
-		$this->response->send();
+		return $this->response->send();
 	}
 
 	public function read() {
 		$this->response->message = $this->orm->read("localizations");
-		$this->response->send();
+		return $this->response->send();
 	}
 }
 ?>

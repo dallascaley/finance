@@ -6,9 +6,9 @@ abstract class apiAbstract {
 	protected $request;
 	protected $response;
 
-	public function __construct($orm) {
+	public function __construct($orm, $params) {
 		$this->orm = $orm;
-		$this->request = new apiRequest();
+		$this->request = new apiRequest($params);
 		$this->response = new apiResponse();
 	}
 
@@ -31,7 +31,7 @@ abstract class apiAbstract {
 	private function defaultResponse($method) {
 		$this->response->status = 'Fail';
 		$this->response->errors = ["$method method not supported"];
-		return $this->response->send();
+		$this->response->send();
 	}
 }
 ?>
