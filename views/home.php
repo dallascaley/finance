@@ -5,7 +5,7 @@
 			<a href="login.php">Login</a>
 		</li>
 		<li>
-			<a href="register.php">Register</a>
+			<a href="signup.php">Sign Up</a>
 		</li>
 		<li>
 			<a href="add_transaction.php">Add Recurring Transaction</a>

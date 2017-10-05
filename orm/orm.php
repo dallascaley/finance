@@ -98,8 +98,21 @@ class orm
 		return $key_clause;
 	}
 
-	public function read($table) {
-		return $this->selectAll("SELECT * FROM $table");
+	public function read($table, $clause = false) {
+		if ($clause) {
+			return $this->selectAll("SELECT * FROM $table WHERE $clause");
+		} else {
+			return $this->selectAll("SELECT * FROM $table");
+		}
+	}
+
+	public function readOne($table, $clause = false) {
+		$all = $this->read($table, $clause = false);
+		if (count($all) > 0) {
+			return $all[0];
+		} else {
+			return false;
+		}
 	}
 
 	public function getError() {

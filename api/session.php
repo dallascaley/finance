@@ -3,8 +3,6 @@
 class session extends apiAbstract {
 
 	public function create() {
-		session_start();
-
 		$params = [
 			'session_id' => session_id(),
 			'username' => '',
@@ -20,7 +18,12 @@ class session extends apiAbstract {
 			$this->response->status = 'Fail';
 			$this->response->message = $this->orm->getError();
 		}
-		$this->response->send();
+		return $this->response->send();
+	}
+
+	public function read() {
+		$this->response->message = $this->orm->readOne('sessions', "session_id = '" . session_id() . "'");
+		return $this->response->send();
 	}
 }
 ?>
