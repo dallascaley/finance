@@ -1,5 +1,9 @@
 $(document).ready(function() {
 
+ 	/*
+ 	 *	Startup
+ 	 */
+
 	var tz = jstz.determine(); // Determines the time zone of the browser client
 	var d = new Date();
 	var offset = (d.getTimezoneOffset() / 60) * -1;
@@ -13,6 +17,10 @@ $(document).ready(function() {
     	console.log(response);
 	},'json');
 
+    /*
+     *	Transitions
+     */
+
 	$('.clicktoggle').on('click', function(e) {
 		e.preventDefault();
 
@@ -23,4 +31,18 @@ $(document).ready(function() {
 			elem.show();
 		}
 	});
+
+	/*
+	 * Form Validation
+	 */
+
+	jQuery.validator.addMethod("mustMatch", function(value){
+		return ($('input[name=password]').val() == value);
+    }, "Passwords must match");
+
+	jQuery.validator.addMethod("isEmail", function(email){
+		var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+		return regex.test(email);
+    }, "Invalid email format");
+
 });

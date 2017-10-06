@@ -18,6 +18,8 @@ class orm
 {
 	private $db;
 
+	private $last_query;
+
  	public function __construct() {
  		$link = mysqli_connect('localhost', DB_USER, DB_PASS);
 
@@ -100,14 +102,14 @@ class orm
 
 	public function read($table, $clause = false) {
 		if ($clause) {
-			return $this->selectAll("SELECT * FROM $table WHERE $clause");
+			return $this->selectAll("SELECT * FROM $table WHERE " . $clause);
 		} else {
 			return $this->selectAll("SELECT * FROM $table");
 		}
 	}
 
 	public function readOne($table, $clause = false) {
-		$all = $this->read($table, $clause = false);
+		$all = $this->read($table, $clause);
 		if (count($all) > 0) {
 			return $all[0];
 		} else {
@@ -131,6 +133,10 @@ class orm
 		}
 	}
 
+	public function lastQuery() {
+		return $this->last_query;
+	}
+
 	private function selectAll($sql) {
 		$result = $this->query($sql);
 
@@ -146,6 +152,7 @@ class orm
 	}
 
 	private function query($sql) {
+		$this->last_query = $sql;
 		return mysqli_query($this->db, $sql);
 	}
 }

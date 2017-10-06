@@ -1,3 +1,8 @@
 body .toggle {
 	display:none;
 }
+
+.error {
+	color: red;
+	font-size: smaller;
+}

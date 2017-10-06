@@ -17,6 +17,9 @@ class apiRequest {
 				}
 			}
 		}
+		foreach($_GET as $key => $value) {
+			$this->params[$key] = $value;
+		}
 	}
 
 	public function has($param) {
