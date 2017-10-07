@@ -32,15 +32,6 @@ class orm
 		}
  	}
 
-	public function createUser($params) {
-		$this->query("INSERT INTO users (`name`,`email`,`password`,`timezone`,`localization`)
-			VALUES ('dallascaley','dallascaley@gmail.com','fart','Pacific Standard Time','English');");
-
-		echo('<br/>User Created!</br>');
-
-		echo(mysqli_error($this->db));
-	}
-
 	public function create($table, $values) {
 		$fields = [];
 		$clean_values = [];
@@ -108,7 +99,16 @@ class orm
 		}
 	}
 
-	public function readOne($table, $clause = false) {
+	public function readOne() {
+		$args = func_get_args();
+		$table = array_shift($args);
+		$clause = (count($args) > 0) ? array_shift($args) : false;
+
+		for($i = count($args); $i > 0; $i--) {
+			$clean_value = mysqli_real_escape_string($this->db, $args[$i - 1]);
+			$clause = str_replace('#'.$i, $clean_value, $clause);
+		}
+
 		$all = $this->read($table, $clause);
 		if (count($all) > 0) {
 			return $all[0];
@@ -140,7 +140,7 @@ class orm
 	private function selectAll($sql) {
 		$result = $this->query($sql);
 
-		if ($result->num_rows > 0) {
+		if ($result && $result->num_rows > 0) {
 			$return_array = [];
 			while ($row = $result->fetch_assoc()) {
 				$return_array[] = $row;

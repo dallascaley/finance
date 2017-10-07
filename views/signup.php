@@ -22,7 +22,7 @@
 		<label>Verify Password</label>
 		<input type="password" name="password2"/>
 		<label>Timezone</label>
-		<select>
+		<select name="timezone">
 		<?php
 			$session = $controller->session('read');
 
@@ -30,7 +30,7 @@
 			foreach ($timezones as $timezone) {
 				$selected = ($session['utc_offset'] == $timezone['utc_offset']) ? 'selected' : '';
 				?>
-				<option value="<?php echo $timezone['utc_offset'] ?>" <?php echo $selected ?>>
+				<option value="<?php echo $timezone['name'] ?>" <?php echo $selected ?>>
 					<?php echo $timezone['name'] .' '. $orm->display('utc_offset', $timezone['utc_offset']) ?>
 				</option>
 				<?php
@@ -38,7 +38,7 @@
 		?>
 		</select>
 		<label>Language</label>
-		<select>
+		<select name="localization">
 		<?php
 			$localizations = $controller->localization('read');
 			foreach ($localizations as $localization) {

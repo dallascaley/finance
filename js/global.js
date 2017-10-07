@@ -45,4 +45,18 @@ $(document).ready(function() {
 		return regex.test(email);
     }, "Invalid email format");
 
+    /*
+     * Tools
+     */
+
+     getFormParams = function(formId) {
+     	var elements = $(formId).serializeArray();
+		var params = {};
+
+		for(var i in elements) {
+			params[elements[i].name] = elements[i].value;
+		}
+		return params;
+     }
+
 });

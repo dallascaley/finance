@@ -19,6 +19,14 @@ $(document).ready(function() {
 	$('#signup-form').on('submit', function(e) {
 		e.preventDefault();
 		
-		console.log('validate this');
+		var params = getFormParams('#signup-form');
+
+		$.post('/api/user', params, function(response) {
+			console.log(response);
+			if (response.status == 'Success') {
+				alert('Success! User has been added');
+				window.location.href = 'profile.php';
+			};
+		},'json');
 	});
 });
