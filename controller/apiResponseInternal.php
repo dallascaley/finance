@@ -1,6 +1,6 @@
 <?php
 
-class apiResponse {
+class apiResponseInternal {
 	
 	public $status = 'Success';
 	public $errors = [];

@@ -1,4 +1,5 @@
 <?php
+
 require_once(__DIR__ . '/../config.php');
 
 class ormFactory
@@ -56,7 +57,7 @@ class orm
 			$updates[] = "`$field` = '" . mysqli_real_escape_string($this->db, $value) . "'";
 		}
 
-		$this->query("UPDATE $table SET " . implode(', ', $updates) . " WHERE " . implode('AND', $key_clause));
+		return $this->query("UPDATE $table SET " . implode(', ', $updates) . " WHERE " . implode('AND', $key_clause));
 	}
 
 	public function createOrUpdate($table, $values) {
@@ -119,18 +120,6 @@ class orm
 
 	public function getError() {
 		return mysqli_error($this->db);
-	}
-
-	public function display($type, $value) {
-		switch ($type) {
-			case 'utc_offset':
-				if ($value > 0) {
-					return substr('0' . $value, -2) . ':00';
-				} else {
-					return '-' . substr('0' . abs($value), -2) . ':00';
-				}
-			break;
-		}
 	}
 
 	public function lastQuery() {

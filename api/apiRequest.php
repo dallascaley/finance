@@ -1,5 +1,4 @@
 <?php
-
 class apiRequest {
 	
 	public $raw_request;

@@ -23,7 +23,6 @@ $(document).ready(function() {
 		e.preventDefault();
 		var new_localization = $('input[name=localization]').val();
 		$.post('/api/localization', {'localization':new_localization}, function(response) {
-			console.log(response);
 			if (response.status == 'Success') {
 				$('#localizations ul').append('<li>' + new_localization + '</li>');
 				$('#localization_add_block').hide();

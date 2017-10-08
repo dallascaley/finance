@@ -11,6 +11,11 @@ class validate extends apiAbstract {
 						$message = '"This email address is already in use"';
 					}
 				break;
+				case 'username':
+					if ($this->orm->readOne('users', "name = '#1'", $value)) {
+						$message = '"This user name is already in use"';
+					}
+				break;
 			}
 		}
 		

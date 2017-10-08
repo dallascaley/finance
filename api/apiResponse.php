@@ -1,5 +1,4 @@
 <?php
-
 class apiResponse {
 	
 	public $status = 'Success';

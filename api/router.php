@@ -21,8 +21,9 @@
 				} else if (file_exists($dir . '/' . $segment . '.php')) {
 
 					include($dir . '/' . $segment . '.php');
+
 					if (class_exists($segment)) {
-						$orm = OrmFactory::getInstance();
+						$orm = ormFactory::getInstance();
 						$module = new $segment($orm);
 
 						switch ($_SERVER['REQUEST_METHOD']) {

@@ -14,7 +14,8 @@ class user extends apiAbstract {
 		];
 
 		if ($this->orm->create('users', $params)) {
-			$this->response->message = 'User Created';
+			$this->session->assignUser($this->request->params['username'])
+			$this->response->message = 'User added!';
 		} else {
 			$this->response->status = 'Fail';
 			$this->response->message = $this->orm->getError();

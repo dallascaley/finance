@@ -1,7 +1,4 @@
 <?php
-	require_once(__DIR__ . '/../orm/orm.php');
-	$orm = OrmFactory::getInstance();
-
 	require_once(__DIR__ . '/../controller/viewController.php');
 	$controller = new viewController();
 ?>
@@ -22,16 +19,17 @@
 		<label>Verify Password</label>
 		<input type="password" name="password2"/>
 		<label>Timezone</label>
+
 		<select name="timezone">
 		<?php
 			$session = $controller->session('read');
 
-			$timezones = $orm->read('timezones');
+			$timezones = $controller->timezone('read');
 			foreach ($timezones as $timezone) {
 				$selected = ($session['utc_offset'] == $timezone['utc_offset']) ? 'selected' : '';
 				?>
 				<option value="<?php echo $timezone['name'] ?>" <?php echo $selected ?>>
-					<?php echo $timezone['name'] .' '. $orm->display('utc_offset', $timezone['utc_offset']) ?>
+					<?php echo $timezone['name'] .' '. $controller->timezone('display', 'utc_offset', $timezone['utc_offset']) ?>
 				</option>
 				<?php
 			}

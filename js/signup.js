@@ -2,7 +2,13 @@ $(document).ready(function() {
 
 	$('#signup-form').validate({
 		rules: {
-			username: "required",
+			username: {
+				required: true,
+				remote: {
+                    url: "api/validate",
+                    type: "get"
+                }
+			},
 			email: {
 				required: true,
 				isEmail: true,
@@ -25,7 +31,7 @@ $(document).ready(function() {
 			console.log(response);
 			if (response.status == 'Success') {
 				alert('Success! User has been added');
-				window.location.href = 'profile.php';
+				window.location.href = 'wizard.php';
 			};
 		},'json');
 	});

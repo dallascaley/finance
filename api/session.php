@@ -5,7 +5,6 @@ class session extends apiAbstract {
 	public function create() {
 		$params = [
 			'session_id' => session_id(),
-			'username' => '',
 			'created' => date("Y-m-d H:i:s"),
 			'updated' => date("Y-m-d H:i:s"),
 			'timezone' => $this->request->params['timezone'],
@@ -16,7 +15,7 @@ class session extends apiAbstract {
 			$this->response->message = 'Session Created';
 		} else {
 			$this->response->status = 'Fail';
-			$this->response->message = $this->orm->getError();
+			$this->response->message = $this->orm->lastQuery();
 		}
 		return $this->response->send();
 	}
@@ -24,6 +23,15 @@ class session extends apiAbstract {
 	public function read() {
 		$this->response->message = $this->orm->readOne('sessions', "session_id = '" . session_id() . "'");
 		return $this->response->send();
+	}
+
+	public function assignUser($username) {
+		$params = [
+			'session_id' => session_id(),
+			'username' => $username
+		];
+		$this->orm->update('sessions', $params);
+		return "User $username assigned";
 	}
 }
 ?>
