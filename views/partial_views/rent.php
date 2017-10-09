@@ -3,6 +3,7 @@
 	<input type="text" id="rent" placeholder="$"/>
 	<label>And when is this due?</label>
 	<select id="rent_frequency">
+		<option value="none">Choose Timeframe</option>
 		<option value="monthly">Every Month</option>
 		<option value="weekly">Once per Week</option>
 		<option value="daily">Daily</option>

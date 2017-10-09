@@ -25,5 +25,6 @@
 </div>
 <div class="wizard step1">
 	<?php $controller->getPartial('rent') ?>
+	<button class="go_to_step" id="wiz-step2">next</button>
 </div>
 </body>

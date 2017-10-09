@@ -2,7 +2,7 @@
 
 class session extends apiAbstract {
 
-	public function create() {
+	public function create($params = []) {
 		$params = [
 			'session_id' => session_id(),
 			'created' => date("Y-m-d H:i:s"),
@@ -20,7 +20,7 @@ class session extends apiAbstract {
 		return $this->response->send();
 	}
 
-	public function read() {
+	public function read($params = []) {
 		$this->response->message = $this->orm->readOne('sessions', "session_id = '" . session_id() . "'");
 		return $this->response->send();
 	}

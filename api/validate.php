@@ -2,7 +2,7 @@
 
 class validate extends apiAbstract {
 
-	public function read() {
+	public function read($params = []) {
 		$message = '"true"';
 		foreach ($this->request->params as $key => $value) {
 			switch ($key) {

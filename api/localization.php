@@ -2,7 +2,7 @@
 
 class localization extends apiAbstract {
 
-	public function create() {
+	public function create($params = []) {
 		
 		if (!$this->request->has('localization')) {
 			$this->response->status = 'Fail';
@@ -19,7 +19,7 @@ class localization extends apiAbstract {
 		return $this->response->send();
 	}
 
-	public function read() {
+	public function read($params = []) {
 		$this->response->message = $this->orm->read("localizations");
 		return $this->response->send();
 	}

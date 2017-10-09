@@ -89,19 +89,19 @@ abstract class apiAbstract {
 		return $this->$name;
 	}
 
-	protected function create() {
+	protected function create($params = []) {
 		$this->defaultResponse('Create');
 	}
 
-	protected function read() {
+	protected function read($params = []) {
 		$this->defaultResponse('Read');
 	}
 
-	protected function update() {
+	protected function update($params = []) {
 		$this->defaultResponse('Update');
 	}	
 
-	protected function delete() {
+	protected function delete($params = []) {
 		$this->defaultResponse('Delete');
 	}
 

@@ -3,7 +3,7 @@
 class user extends apiAbstract {
 
 
-	public function create() {
+	public function create($params = []) {
 
 		$params = [
 			'name' => $this->request->params['username'],
@@ -14,7 +14,30 @@ class user extends apiAbstract {
 		];
 
 		if ($this->orm->create('users', $params)) {
-			$this->session->assignUser($this->request->params['username'])
+			$this->session->assignUser($this->request->params['username']);
+
+			$first_name = [
+				'name' => $this->request->params['first_name'],
+				'username' => $this->request->params['username'],
+				'cardinality' => 1
+			];
+			$this->name->create($first_name);
+
+			$last_name = [
+				'name' => $this->request->params['last_name'],
+				'username' => $this->request->params['username'],
+				'cardinality' => 2
+			];
+			$this->name->create($last_name);
+
+			$account = [
+				'name' => 'Main',
+				'username' => $this->request->params['username'],
+				'balance' => 0,
+				'type' => 'default'
+			];
+			$this->account->create($account);
+
 			$this->response->message = 'User added!';
 		} else {
 			$this->response->status = 'Fail';

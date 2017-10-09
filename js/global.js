@@ -13,8 +13,7 @@ $(document).ready(function() {
     }
 
     $.post('/api/session', session_data, function(response) {
-    	console.log('DERP!');
-    	console.log(response);
+
 	},'json');
 
     /*

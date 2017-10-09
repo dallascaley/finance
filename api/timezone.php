@@ -2,12 +2,12 @@
 
 class timezone extends apiAbstract {
 
-	public function read() {
+	public function read($params = []) {
 		$this->response->message = $this->orm->read("timezones");
 		return $this->response->send();
 	}
 
-	public function display() {
+	public function display($params = []) {
 		$type = $this->request->params[0];
 		$value = $this->request->params[1];
 
