@@ -6,3 +6,7 @@ body .toggle {
 	color: red;
 	font-size: smaller;
 }
+
+select.error {
+	color: black;
+}

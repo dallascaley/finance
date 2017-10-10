@@ -44,6 +44,10 @@ $(document).ready(function() {
 		return regex.test(email);
     }, "Invalid email format");
 
+    jQuery.validator.addMethod("notNone", function(value){
+		return !(value == 'none');
+    }, "You must make a selection");
+
     /*
      * Tools
      */

@@ -1,7 +1,3 @@
-<?php
-	require_once(__DIR__ . '/../orm/orm.php');
-	$orm = OrmFactory::getInstance();
-?>
 <body>
 	<h2>Admin</h2>
 	<ul>
@@ -29,7 +25,7 @@
 					<td>GMT Offset</td>
 				</tr>
 				<?php
-					$timezones = $orm->read('timezones');
+					$timezones = $controller->timezone('read');
 					foreach ($timezones as $timezone) {
 						?>
 						<tr>

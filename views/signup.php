@@ -1,7 +1,3 @@
-<?php
-	require_once(__DIR__ . '/../controller/viewController.php');
-	$controller = new viewController();
-?>
 <body>
 <div>
 	<h2>Create Account</h2>

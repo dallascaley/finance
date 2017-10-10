@@ -1,10 +1,3 @@
-<?php
-	require_once(__DIR__ . '/../orm/orm.php');
-	$orm = ormFactory::getInstance();
-
-	require_once(__DIR__ . '/../controller/viewController.php');
-	$controller = new viewController();
-?>
 <body>
 <div id="intro">
 	<h3>So what the heck is this thing?</h3>
@@ -25,6 +18,5 @@
 </div>
 <div class="wizard step1">
 	<?php $controller->getPartial('rent') ?>
-	<button class="go_to_step" id="wiz-step2">next</button>
 </div>
 </body>

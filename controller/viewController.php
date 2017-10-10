@@ -42,10 +42,27 @@
 		private function getPartial($params) {
 			$view = (is_array($params)) ? array_shift($params) : $params;
 			$file = __DIR__ . '/../views/partial_views/' . $view . '.php';
+			$url = SITE_URL . '/views/partial_views/' . $view . '.php';
 
 			if (file_exists($file)) {
-				$viewHTML = file_get_contents($file);
-				echo($viewHTML);
+				
+				$request_host = 'finance.local';
+				$request_url    = '192.168.33.10/views/partial_views/' . $view . '.php';
+				$headers = array("Host: ".$request_host);
+
+				$ch = curl_init();
+				$timeout = 5;
+
+				curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+				//curl_setopt($ch, CURLOPT_URL, $request_url.'?'.$request_args);
+				curl_setopt($ch, CURLOPT_URL, $request_url);
+				curl_setopt($ch, CURLOPT_HEADER, FALSE);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+				curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+				$data = curl_exec($ch);
+				curl_close($ch);
+				echo($data);
+				
 			} else {
 				echo("<div class='error'>Error: partial file: $view.php is missing or improperly formed.</div>");
 			}

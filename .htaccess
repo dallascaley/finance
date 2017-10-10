@@ -3,6 +3,7 @@ Header add Access-Control-Allow-Headers "origin, x-requested-with, content-type"
 Header add Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS"
 
 RewriteEngine on
+RewriteRule ^(views/partial_views) - [L]
 RewriteCond %{REQUEST_URI}  !(\.png|\.jpg|\.gif|\.jpeg|\.bmp|\.js|\.css)$
 RewriteRule ^(.*)$ index.php [NC,QSA,L]
 

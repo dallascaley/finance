@@ -41,11 +41,20 @@
 			?>
 		</head>
 		<?php
+		require_once(__DIR__ . '/controller/viewController.php');
+		$controller = new viewController();
+
+		require_once(__DIR__ . '/views/helper.php');
+		$helper = new viewHelper();
+
+		$user = $controller->user('read');
+
 		$include = __DIR__ . '/views/home.php';
 
 		if ($full_path != '/' && file_exists(__DIR__ . '/views/' . $full_path)) {
 			$include = __DIR__ . '/views/' . $full_path;
 		}
 		include($include);
+
 	}
 ?>

@@ -45,5 +45,19 @@ class user extends apiAbstract {
 		}
 		return $this->response->send();
 	}
+
+	public function read($params = []) {
+		if (count($params) == 0) {
+			$session = $this->session->read();
+			$user = $this->orm->readOne('users', "name = '#1'", $session['username']);
+			if ($user) {
+				$this->response->message = $user;
+			} else {
+				$this->response->message = false;
+				$this->response->status = 'Fail';
+			}
+			return $this->response->send();
+		}
+	}
 }
 ?>
