@@ -2,7 +2,7 @@ $(document).ready(function() {
 
 	$('#step1-form').validate({
 		rules: {
-			rent: "required",
+			rent: {currency: ["$", false]},
 			rent_frequency: {notNone: true}
 		}
 	});
@@ -23,15 +23,10 @@ $(document).ready(function() {
 		$('#'+thisForm+'-form').trigger('submit');
 
 		/*
-		var params = getFormParams('#'+thisForm+'-form');
 
-		$.post('/api/user', params, function(response) {
-			console.log(response);
-			if (response.status == 'Success') {
-				alert('Success! User has been added');
-				window.location.href = 'wizard.php';
-			};
-		},'json');
+		Todo:  make url change with every step,
+		use this: https://stackoverflow.com/questions/824349/modify-the-url-without-reloading-the-page
+
 		*/
 
 	});
@@ -41,15 +36,20 @@ $(document).ready(function() {
 
 		var params = getFormParams('#step1-form');
 
-		$.post('/api/reoccurrence', params, function(response) {
-			console.log(response);
+		var post_params = {
+			name: 'Rent',
+			amount: params.rent,
+			frequency: params.rent_frequency,
+			day: params.rent_frequency_day,
+			action: 'debit'
+		};
 
-			/*
+		$.post('/api/reoccurrence', post_params, function(response) {
+			console.log(response);
 			if (response.status == 'Success') {
-				alert('Success! User has been added');
-				window.location.href = 'wizard.php';
+				alert('Thank you, lets see what\'s next...');
+				window.location.href = 'wizard.php?step=2';
 			};
-			*/
 		},'json');
 	});
 

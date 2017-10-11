@@ -28,8 +28,8 @@
 			?>
 
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-			<!--<script src="/tools/jquery-validation-1.17.0/dist/jquery.validate.min.js"></script>-->
 			<script src="/js/jquery.validate.min.js"></script>
+			<script src="/tools/jquery-validation-1.17.0/src/additional/currency.js"></script>
 			<script src="/tools/bootstrap/js/bootstrap.min.js"></script>
 			<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jstimezonedetect/1.0.4/jstz.min.js"></script>
 			<script src="/js/global.js"></script>
