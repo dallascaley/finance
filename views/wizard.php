@@ -19,4 +19,7 @@
 <div class="wizard step1">
 	<?php $controller->getPartial('rent') ?>
 </div>
+<div class="wizard step2">
+	<?php $controller->getPartial('job') ?>
+</div>
 </body>

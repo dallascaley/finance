@@ -1,5 +1,25 @@
 $(document).ready(function() {
 
+	//Startup
+
+	$.get('/api/wizard', function(data) {
+		console.log('wizard response');
+		console.log(data.message);
+		if (data.message.length > 0) {
+			$('.wizard.' + data.message).show();
+
+			history.pushState(
+				{step:"wizard-"+data.message},
+				data.message,
+				"wizard.php?step="+data.message
+			);
+
+		} else {
+			$('#intro').show();
+		}
+	}, 'json');
+
+
 	$('#step1-form').validate({
 		rules: {
 			rent: {currency: ["$", false]},
@@ -22,12 +42,11 @@ $(document).ready(function() {
 		}
 		$('#'+thisForm+'-form').trigger('submit');
 
-		/*
-
-		Todo:  make url change with every step,
-		use this: https://stackoverflow.com/questions/824349/modify-the-url-without-reloading-the-page
-
-		*/
+		history.pushState(
+			{step:"wizard-"+nextForm},
+			nextForm,
+			"wizard.php?step="+nextForm
+		);
 
 	});
 
