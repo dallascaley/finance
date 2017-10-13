@@ -16,31 +16,32 @@
 		$router = new router($path);
 		$router->routeRequest();
 	} else {
-		?>
-		<head>
-			<link rel="stylesheet" type="text/css" href="/tools/bootstrap/css/bootstrap.min.css">
-			<link rel="stylesheet" type="text/css" href="/css/global.css">
-			<?php
-				$css_path = str_replace('.php', '.css', $full_path);
-				if (file_exists(__DIR__ . '/css' . $css_path)) {
-					echo '<link rel="stylesheet" type="text/css" href="/css' . $css_path . '">';
-				}
-			?>
-
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-			<script src="/js/jquery.validate.min.js"></script>
-			<script src="/tools/jquery-validation-1.17.0/src/additional/currency.js"></script>
-			<script src="/tools/bootstrap/js/bootstrap.min.js"></script>
-			<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jstimezonedetect/1.0.4/jstz.min.js"></script>
-			<script src="/js/global.js"></script>
-			<?php
-				$js_path = str_replace('.php', '.js', $full_path);
-				if (file_exists(__DIR__ . '/js' . $js_path)) {
-					echo '<script src="/js' . $js_path . '"></script>';
-				}
-			?>
-		</head>
+?>
+<!DOCTYPE html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="/tools/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/css/global.css">
 		<?php
+			$css_path = str_replace('.php', '.css', $full_path);
+			if (file_exists(__DIR__ . '/css' . $css_path)) {
+				echo '<link rel="stylesheet" type="text/css" href="/css' . $css_path . '">';
+			}
+		?>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="/js/jquery.validate.min.js"></script>
+		<script src="/tools/jquery-validation-1.17.0/src/additional/currency.js"></script>
+		<script src="/tools/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jstimezonedetect/1.0.4/jstz.min.js"></script>
+		<script src="/js/global.js"></script>
+		<?php
+			$js_path = str_replace('.php', '.js', $full_path);
+			if (file_exists(__DIR__ . '/js' . $js_path)) {
+				echo '<script src="/js' . $js_path . '"></script>';
+			}
+		?>
+	</head>
+	<?php
 		require_once(__DIR__ . '/controller/viewController.php');
 		$controller = new viewController();
 

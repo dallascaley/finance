@@ -59,5 +59,21 @@ class user extends apiAbstract {
 			return $this->response->send();
 		}
 	}
+
+	public function login() {
+		$user = $this->orm->readOne('users', "name = '#1' AND password = '#2'", 
+			$this->request->params['username'], 
+			$this->request->params['password']
+		);
+
+		if ($user) {
+			$this->session->assignUser($this->request->params['username']);
+		} else {
+			$this->response->message = false;
+			$this->response->status = 'Fail';
+		}
+		$this->response->message = "User logged in";
+		return $this->response->send();
+	} 
 }
 ?>
