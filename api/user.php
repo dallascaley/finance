@@ -75,5 +75,12 @@ class user extends apiAbstract {
 		$this->response->message = "User logged in";
 		return $this->response->send();
 	} 
+
+	public function logout() {
+		session_destroy();
+		
+		$this->response->message = "User logged out";
+		return $this->response->send();
+	}
 }
 ?>

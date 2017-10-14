@@ -21,6 +21,9 @@
 			<li>
 				<a href="admin.php">Admin</a>
 			</li>
+			<li>
+				<a id="logout">Logout</a>
+			</li>
 		<?php } ?>
 	</ul>
 </div>

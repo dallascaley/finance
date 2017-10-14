@@ -39,6 +39,9 @@
 			if (file_exists(__DIR__ . '/js' . $js_path)) {
 				echo '<script src="/js' . $js_path . '"></script>';
 			}
+			if ($js_path == '/') {
+				echo '<script src="/js/home.js"></script>';
+			}
 		?>
 	</head>
 	<?php
