@@ -66,19 +66,27 @@ class user extends apiAbstract {
 			$this->request->params['password']
 		);
 
+		if (!$user) {
+			$user = $this->orm->readOne('users', "email = '#1' AND password = '#2'", 
+				$this->request->params['username'], 
+				$this->request->params['password']
+			);
+		}
+
 		if ($user) {
-			$this->session->assignUser($this->request->params['username']);
+			$this->session->assignUser($user['name']);
+			$this->response->message = "User logged in";
 		} else {
 			$this->response->message = false;
 			$this->response->status = 'Fail';
 		}
-		$this->response->message = "User logged in";
+
 		return $this->response->send();
 	} 
 
 	public function logout() {
+		session_regenerate_id();
 		session_destroy();
-		
 		$this->response->message = "User logged out";
 		return $this->response->send();
 	}

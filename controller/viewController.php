@@ -47,14 +47,13 @@
 			if (file_exists($file)) {
 				
 				$request_host = 'finance.local';
-				$request_url    = '192.168.33.10/views/partial_views/' . $view . '.php';
+				$request_url    = LOOPBACK_IP .'/views/partial_views/' . $view . '.php';
 				$headers = array("Host: ".$request_host);
 
 				$ch = curl_init();
 				$timeout = 5;
 
 				curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-				//curl_setopt($ch, CURLOPT_URL, $request_url.'?'.$request_args);
 				curl_setopt($ch, CURLOPT_URL, $request_url);
 				curl_setopt($ch, CURLOPT_HEADER, FALSE);
 				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -66,6 +65,7 @@
 			} else {
 				echo("<div class='error'>Error: partial file: $view.php is missing or improperly formed.</div>");
 			}
+
 		}
 	}
 ?>

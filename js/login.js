@@ -23,7 +23,7 @@ $(document).ready(function() {
 			console.log(response);
 			if (response.status == 'Success') {
 				alert('Woohoo!');
-				//window.location.href = 'wizard.php?step=2';
+				window.location.href = 'wizard.php';
 			};
 		},'json');
 	});

@@ -7,7 +7,7 @@ $(document).ready(function() {
 		$.post('/api/user/logout', {}, function(response) {
 			console.log(response);
 			if (response.status == 'Success') {
-				//location.reload();
+				location.reload();
 			};
 		},'json');
 	});
