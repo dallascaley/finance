@@ -7,7 +7,6 @@ class reoccurrence extends apiAbstract {
 		$session = $this->session->read();
 
 		if ($session['username']) {
-
 			$params = [
 				'name' => $this->request->params['name'],
 				'username' => $session['username'],
@@ -17,13 +16,15 @@ class reoccurrence extends apiAbstract {
 			];
 
 			if ($this->orm->create('reoccurrences', $params)) {
-				if (array_key_exists('day', $this->request->params)) {
-					$params = [
-						'reoccurrence' => $this->request->params['name'],
-						'username' => $session['username'],
-						'day' => $this->request->params['day']
-					];
-					$this->orm->create('days', $params);
+				if (array_key_exists('days', $this->request->params)) {
+					foreach($this->request->params['days'] as $day) {
+						$params = [
+							'reoccurrence' => $this->request->params['name'],
+							'username' => $session['username'],
+							'day' => $day
+						];
+						$this->orm->create('days', $params);
+					}
 				}
 				$this->response->message = 'Reoccurrence added';
 			} else {

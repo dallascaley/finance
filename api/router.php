@@ -22,7 +22,6 @@
 					if (is_dir($dir . '/' . $segment)) {
 						$dir .= '/' . $segment;
 					} else if (file_exists($dir . '/' . $segment . '.php')) {
-
 						include($dir . '/' . $segment . '.php');
 
 						if (class_exists($segment)) {

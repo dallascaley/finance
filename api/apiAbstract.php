@@ -15,10 +15,10 @@ abstract class apiAbstract {
 
 		if ($internal) {
 			$this->request = new apiRequestInternal($params);
-			$this->response = new ApiResponseInternal();
+			$this->response = new apiResponseInternal();
 		} else {
 			$this->request = new apiRequest();
-			$this->response = new ApiResponse();
+			$this->response = new apiResponse();
 		}
 	}
 

@@ -3,8 +3,6 @@ $(document).ready(function() {
 	//Startup
 
 	$.get('/api/wizard', function(data) {
-		console.log('wizard response');
-		console.log(data.message);
 		if (data.message.length > 0) {
 			$('.wizard.' + data.message).show();
 
@@ -40,25 +38,33 @@ $(document).ready(function() {
 		var thisForm = segments[0];
 		var nextForm = segments[1];
 
-		$('#intro').hide();
+		if ($('#intro').is(':visible')) {
+			$('#intro').hide();
+			$('.wizard.step1').show();
+		} else {
+			if ($('#'+thisForm+'-form').valid()) {
+				$('#'+thisForm+'-form').trigger('submit');
 
-		if ($('.wizard.' + nextForm).length > 0) {
-			$('.wizard').hide();
-			$('.wizard.' + nextForm).show();
+				if ($('.wizard.' + nextForm).length > 0) {
+					$('.wizard').hide();
+					$('.wizard.' + nextForm).show();
+
+					history.pushState(
+						{step:"wizard-"+nextForm},
+						nextForm,
+						"wizard.php?step="+nextForm
+					);
+				}
+			}
 		}
-		$('#'+thisForm+'-form').trigger('submit');
-
-		history.pushState(
-			{step:"wizard-"+nextForm},
-			nextForm,
-			"wizard.php?step="+nextForm
-		);
-
 	});
 
 	$('#step1-form').validate({
 		rules: {
-			rent: {currency: ["$", false]},
+			rent: {
+				required: true,
+				currency: ["$", false],
+			},
 			rent_frequency: {notNone: true}
 		}
 	});
@@ -72,30 +78,45 @@ $(document).ready(function() {
 			name: 'Rent',
 			amount: params.rent,
 			frequency: params.rent_frequency,
-			day: params.rent_frequency_day,
+			days:[],
 			action: 'debit'
 		};
 
+		if ($('#rent_frequency_weekday').is(':visible')) {
+			post_params.days.push($('#rent_frequency_weekday').val());
+		}
+
+		if ($('#rent_frequency_day_1').is(':visible')) {
+			post_params.days.push($('#rent_frequency_day_1').val());
+		}
+
+		if ($('#rent_frequency_day_2').is(':visible')) {
+			post_params.days.push($('#rent_frequency_day_2').val());
+		}
+
 		$.post('/api/reoccurrence', post_params, function(response) {
-			console.log(response);
 			if (response.status == 'Success') {
 				alert('Thank you, lets see what\'s next...');
 				window.location.href = 'wizard.php?step=2';
 			};
 		},'json');
+
 	});
 
 	$('#step2-form').validate({
 		rules: {
-			income: {currency: ["$", false]},
+			income: {
+				required: true,
+				currency: ["$", false],
+			},
 			income_frequency: {notNone: true}
 		}
 	});
 
-	$('#step1-form').on('submit', function(e) {
+	$('#step2-form').on('submit', function(e) {
 		e.preventDefault();
 
-		var params = getFormParams('#step1-form');
+		var params = getFormParams('#step2-form');
 
 		var post_params = {
 			name: 'Rent',
