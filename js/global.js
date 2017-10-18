@@ -16,6 +16,14 @@ $(document).ready(function() {
 
 	},'json');
 
+	var query_string = window.location.search.substr(1);
+	var key_values = query_string.split('&');
+	window.get = {};
+	for (var i in key_values) {
+		var parts = key_values[i].split('=');
+		window.get[parts[0]] = parts[1];
+	}
+
     /*
      *	Transitions
      */
