@@ -19,7 +19,8 @@
 
 	<div class="depends" dependency="income_frequency" value="bi-weekly,weekly">
 		<label>On:</label>
-		<select id="income_frequency_weekday" name="income_frequency_weekday">
+		<select id="income_frequency_weekday" name="income_frequency_weekday" class="dependency">
+			<option value="none">Choose Day</option>
 			<option value="0">Sunday</option>
 			<option value="1">Monday</option>
 			<option value="2">Tuesday</option>
@@ -27,6 +28,12 @@
 			<option value="4">Thursday</option>
 			<option value="5">Friday</option>
 			<option value="6">Saturday</option>
+		</select>
+	</div>
+
+	<div class="depends" dependency="income_frequency_weekday,income_frequency" value="0,1,2,3,4,5,6|bi-weekly">
+		<label>And your next payday is:</label>
+		<select id="income_frequency_date" name="income_frequency_date" from="income_frequency_weekday">
 		</select>
 	</div>
 

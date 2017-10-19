@@ -70,4 +70,36 @@ $(document).ready(function() {
 		return params;
      }
 
+     getDayFromJSDaynum = function(day) {
+     	var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+     	return days[day];
+     }
+
+     getMonthFromJSMonthnum = function(month) {
+     	var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+     	return months[month];
+     }
+
+     jsNth = function (number) {
+		if (number > 10 && number < 20) {
+			return number + 'th';
+		} else {
+			var digit = ('0' + number).slice(-1);
+			switch (digit) {
+				case '1':
+					return number + 'st';
+				break;
+				case '2':
+					return number + 'nd';
+				break;
+				case '3':
+					return number + 'rd';
+				break;
+				default:
+					return number + 'th';
+				break;
+			}
+		}
+	}
+
 });
