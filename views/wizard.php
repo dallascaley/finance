@@ -17,16 +17,34 @@
 	<button class="go_to_step" id="wiz-step1">Give it a Try!</button>
 </div>
 <div class="wizard step1">
-	<?php 
-		$params = [
-			'view' => 'reoccurrence',
-			'title' => 'Rent is usually most people\'s biggest expense every month. Tell us about yours.'
-		];
-		$controller->getPartial($params);
-		//$controller->getPartial('rent'); 
-	?>
+	<form id="step1-form">
+		<?php 
+			$params = [
+				'id' => 'rent',
+				'view' => 'reoccurrence',
+				'title' => 'Rent is usually most people\'s biggest expense every month. Tell us about yours.',
+				'frequency_msg' => 'And when is this due?',
+				'next_msg' => 'And the next time you have to pay rent is?',
+			];
+			$controller->getPartial($params);
+		?>
+		<div><button type="submit" class="go_to_step" id="step1-step2">next</button></div>
+	</form>
 </div>
 <div class="wizard step2">
-	<?php $controller->getPartial('job') ?>
+	<?php //$controller->getPartial('job') ?>
+	<form id="step2-form">
+		<?php 
+			$params = [
+				'id' => 'income',
+				'view' => 'reoccurrence',
+				'title' => 'Next we\'ll look at your income.  How much do you make?',
+				'frequency_msg' => 'How Often?',
+				'next_msg' => 'And your next payday is?',
+			];
+			$controller->getPartial($params);
+		?>
+		<div><button type="submit" class="go_to_step" id="step2-step3">next</button></div>
+	</form>
 </div>
 </body>
