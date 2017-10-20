@@ -17,7 +17,14 @@
 	<button class="go_to_step" id="wiz-step1">Give it a Try!</button>
 </div>
 <div class="wizard step1">
-	<?php $controller->getPartial('rent') ?>
+	<?php 
+		$params = [
+			'view' => 'reoccurrence',
+			'title' => 'Rent is usually most people\'s biggest expense every month. Tell us about yours.'
+		];
+		$controller->getPartial($params);
+		//$controller->getPartial('rent'); 
+	?>
 </div>
 <div class="wizard step2">
 	<?php $controller->getPartial('job') ?>

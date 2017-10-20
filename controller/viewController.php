@@ -40,14 +40,29 @@
 		}
 
 		private function getPartial($params) {
-			$view = (is_array($params)) ? array_shift($params) : $params;
+
+			if (array_key_exists(0, $params)) {
+				$view = (array_key_exists('view', $params[0])) ? $params[0]['view'] : $params[0];
+			} else {
+				$view = 'Not Defined';
+			}
+
 			$file = __DIR__ . '/../views/partial_views/' . $view . '.php';
 			$url = SITE_URL . '/views/partial_views/' . $view . '.php';
+
+			$query_string = '';
+			if (count($params[0]) > 1) {
+				$query_string = '?';
+				foreach ($params[0] as $key => $value) {
+					$query_string .= $key . '=' . urlencode($value) . '&';
+				}
+				$query_string = substr($query_string, 0, -1);
+			}
 
 			if (file_exists($file)) {
 				
 				$request_host = 'finance.local';
-				$request_url    = LOOPBACK_IP .'/views/partial_views/' . $view . '.php';
+				$request_url    = LOOPBACK_IP .'/views/partial_views/' . $view . '.php' . $query_string;
 				$headers = array("Host: ".$request_host);
 
 				$ch = curl_init();
