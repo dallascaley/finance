@@ -32,7 +32,6 @@
 	</form>
 </div>
 <div class="wizard step2">
-	<?php //$controller->getPartial('job') ?>
 	<form id="step2-form">
 		<?php 
 			$params = [
@@ -45,6 +44,37 @@
 			$controller->getPartial($params);
 		?>
 		<div><button type="submit" class="go_to_step" id="step2-step3">next</button></div>
+	</form>
+</div>
+<div class="wizard step3">
+	<form id="step3-form">
+		<p>We figured just about everybody has to pay some kind of rent and makes money at some sort of job.  Next 
+		we will look at other common expenses.  Tell us what else you spend your hard earned cash on.</p>
+		<div>
+			<input type="checkbox" id="credit_cards" name="credit_cards"/>
+			<label for="credit_cards">Credit Cards</label>
+		</div>
+		<div>
+			<input type="checkbox" id="insurance" name="insurance"/>
+			<label for="insurance">Insurance</label>
+		</div>
+		<div>
+			<input type="checkbox" id="phone" name="phone"/>
+			<label for="phone">Phone</label>
+		</div>
+		<div>
+			<input type="checkbox" id="internet" name="internet"/>
+			<label for="internet">Internet</label>
+		</div>
+		<div>
+			<input type="checkbox" id="cable" name="cable"/>
+			<label for="cable">Cable TV</label>
+		</div>
+		<div>
+			<input type="checkbox" id="utilities" name="utilities"/>
+			<label for="utilities">Utilities</label>
+		</div>
+		<div><button type="submit" class="go_to_step" id="step3-step4">next</button></div>
 	</form>
 </div>
 </body>

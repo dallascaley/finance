@@ -9,11 +9,11 @@ class wizard extends apiAbstract {
 
 		$message = '';
 		switch (true) {
-			case ($step1):
-				$message = 'step2';
-			break;
 			case ($step2):
 				$message = 'step3';
+			break;
+			case ($step1):
+				$message = 'step2';
 			break;
 		}
 

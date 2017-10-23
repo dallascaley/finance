@@ -35,76 +35,6 @@ $(document).ready(function() {
 	    }
 	});
 
-	$('.dependency').on('change', function(e) {
-		var dependency_id = $(this).attr('id');
-		var dependency_value = $(this).val();
-
-		$('.depends').each(function() {
-			var depends_values = $(this).attr('dependency').split(',');
-			var value_sets = $(this).attr('value').split('|');
-			var values = [];
-			for (var i in value_sets) {
-				values.push(value_sets[i].split(','));
-			}
-			var show = true;
-			for (var q in depends_values) {
-				var dependent_id = depends_values[q];
-
-				if (dependent_id == dependency_id) {
-					if (values[q].indexOf(dependency_value) == -1) {
-						show = false;
-					}
-				} else {
-					if (values[q].indexOf($('#' + dependent_id).val()) == -1) {
-						show = false;
-					}
-				}
-			}
-			if (show) {
-				var select = $(this).find('select');
-				if (select.attr('id').includes("_date")) {
-					select.empty();
-					var day = $('#' + select.attr('from')).val();
-					var d = new Date();
-					var today = d.getDay();
-
-					if (day < today) {
-						var interval = 7 - (today - day);
-					} else {
-						var interval = day - today;
-					}
-					var nextTimestamp = Date.now() + (interval * 86400000);
-					var dnext = new Date(nextTimestamp);
-					var nextDay = dnext.getFullYear() + '-' + ('0' + (dnext.getMonth() + 1)).slice(-2) + '-' + ('0' + dnext.getDate()).slice(-2);
-					var nextDisplayDay = getMonthFromJSMonthnum(dnext.getMonth()) + ' ' + jsNth(dnext.getDate());
-
-					var followingTimestamp = Date.now() + ((interval + 7) * 86400000);
-					var dfollowing = new Date(followingTimestamp);
-					var followingDay = dfollowing.getFullYear() + '-' + ('0' + (dfollowing.getMonth() + 1)).slice(-2) + '-' + ('0' + dfollowing.getDate()).slice(-2);
-					var followingDisplayDay = getMonthFromJSMonthnum(dfollowing.getMonth()) + ' ' + jsNth(dfollowing.getDate());
-
-					switch (true) {
-						case (today == day):
-							select.append('<option value="' + nextDay + '">Today ' + nextDisplayDay + '</option');
-							select.append('<option value="' + followingDay + '">Next ' + getDayFromJSDaynum(day) + ' ' + followingDisplayDay + '</option');
-						break;
-						case (today == (day - 1)):
-							select.append('<option value="' + nextDay + '">Tomorrow ' + nextDisplayDay + '</option');
-							select.append('<option value="' + followingDay + '">The Following ' + getDayFromJSDaynum(day) + ' ' + followingDisplayDay + '</option');
-						break;
-						default:
-							select.append('<option value="' + nextDay + '">This ' + getDayFromJSDaynum(day) + ' ' + nextDisplayDay + '</option>');
-							select.append('<option value="' + followingDay + '">The Following ' + getDayFromJSDaynum(day) + ' ' + followingDisplayDay + '</option');
-						break;
-					}
-				}
-				$(this).show();
-			} else {
-				$(this).hide();
-			}
-		});
-	});
-
 
 	$('.go_to_step').on('click', function(e) {
 		e.preventDefault();
@@ -166,6 +96,10 @@ $(document).ready(function() {
 			post_params.days.push($('#rent_frequency_weekday').val());
 		}
 
+		if ($('#rent_frequency_date').is(':visible')) {
+			post_params.date = $('#rent_frequency_date').val();
+		}
+
 		if ($('#rent_frequency_day_1').is(':visible')) {
 			post_params.days.push($('#rent_frequency_day_1').val());
 		}
@@ -201,9 +135,27 @@ $(document).ready(function() {
 			name: 'Pay',
 			amount: params.income,
 			frequency: params.income_frequency,
-			day: params.income_frequency_day,
+			days: [],
 			action: 'credit'
 		};
+
+		if ($('#income_frequency_weekday').is(':visible')) {
+			post_params.days.push($('#income_frequency_weekday').val());
+		}
+
+		if ($('#income_frequency_date').is(':visible')) {
+			post_params.date = $('#income_frequency_date').val();
+			post_params.datetype = 'start';
+		}
+
+		if ($('#income_frequency_day_1').is(':visible')) {
+			post_params.days.push($('#income_frequency_day_1').val());
+		}
+
+		if ($('#income_frequency_day_2').is(':visible')) {
+			post_params.days.push($('#income_frequency_day_2').val());
+		}
+		console.log(post_params);
 
 		$.post('/api/reoccurrence', post_params, function(response) {
 			console.log(response);
@@ -211,6 +163,7 @@ $(document).ready(function() {
 				alert('Thank you, lets see what\'s next...');
 			};
 		},'json');
+
 	});
 
 
