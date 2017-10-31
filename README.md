@@ -6,6 +6,8 @@ A simple application to help people who survive paycheck to paycheck manage thei
 
 First, git clone this thing.  Then look at it.  If you can't figure out how to install it from looking at it then you are probably not the right person for the job.
 
+See: [How to set up git](docs/git-setup.md)
+
 ### Prerequisites
 
 * warm blood in your veins
@@ -18,8 +20,6 @@ First, git clone this thing.  Then look at it.  If you can't figure out how to i
 ```
 Give examples
 ```
-
-F you! and F this README template.  Here is what is going on:
 
 I conceive this project a few years ago.  The original idea was to have an application where users could enter all of their reoccurring debits and credits and also their current bank acount balance and the system would generate a graphical representation of what their bank balance would be in the future assuming that the same pattern of debits and credits continue.
 

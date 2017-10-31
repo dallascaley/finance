@@ -24,6 +24,9 @@
 			<li>
 				<a id="logout">Logout</a>
 			</li>
+			<li>
+				<a href="README.md">Project Documentation</a>
+			</li>
 		<?php } ?>
 	</ul>
 </div>

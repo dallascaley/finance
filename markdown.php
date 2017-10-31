@@ -10,12 +10,14 @@
 		$full_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 		$path = array_map('rawurldecode', explode('/', substr($full_path, 1)));
 
-		$file = file_get_contents($path[0]);
+		$file = file_get_contents(DOC_ROOT . $full_path);
 
 		$payload = array(
 			'text' => $file,
 			'mode' => 'markdown'
 		);
+
+		//print_r($payload);
 
 		$data = json_encode($payload);
 

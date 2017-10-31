@@ -7,3 +7,4 @@ define('SITE_URL','http://finance.local');
 define('LOOPBACK_IP','192.168.33.10');
 define('GITHUB_USER','yourusername@yourdomain.tld');
 define('GITHUB_PASS','your pw');
+define('DOC_ROOT','/var/www/finance');
