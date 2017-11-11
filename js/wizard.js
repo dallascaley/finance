@@ -8,13 +8,6 @@ $(document).ready(function() {
 		$.get('/api/wizard', function(data) {
 			if (data.message.length > 0) {
 				$('.wizard.' + data.message).show();
-
-				history.pushState(
-					{step:"wizard-"+data.message},
-					data.message,
-					"wizard.php?step="+data.message
-				);
-
 			} else {
 				$('#intro').show();
 			}
