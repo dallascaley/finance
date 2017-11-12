@@ -17,11 +17,11 @@ $(document).ready(function() {
 		var params = getFormParams('#transaction-form');
 
 		var post_params = {
-			name: 'Test',
+			name: $('#name').val(),
 			amount: params.transaction,
 			frequency: params.transaction_frequency,
 			days:[],
-			action: 'debit'
+			action: $('input[name=type]:checked').val()
 		};
 
 		if ($('#transaction_frequency_weekday').is(':visible')) {
@@ -40,9 +40,12 @@ $(document).ready(function() {
 			post_params.days.push($('#transaction_frequency_day_2').val());
 		}
 
+		console.log(post_params);
+
 		$.post('/api/reoccurrence', post_params, function(response) {
 			if (response.status == 'Success') {
 				alert('Thank you');
+				location.reload();
 			};
 		},'json');
 

@@ -16,7 +16,7 @@
 				<a href="wizard.php">Wizard</a>
 			</li>
 			<li>
-				<a href="display_predicitons.php">Display Predictions</a>
+				<a href="display_predictions.php">Display Predictions</a>
 			</li>
 			<li>
 				<a href="admin.php">Admin</a>

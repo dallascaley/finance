@@ -144,4 +144,15 @@ class orm
 		$this->last_query = $sql;
 		return mysqli_query($this->db, $sql);
 	}
+
+	public function getSimulationData($username) {
+		return $this->selectAll("SELECT * FROM reoccurrences r
+			LEFT JOIN days d
+			  ON r.name = d.reoccurrence
+			  AND r.username = d.username
+			LEFT JOIN dates d2
+			  ON r.name = d2.reoccurrence
+			  AND r.username = d2.username
+			WHERE r.username = '$username';");
+	}
 }
