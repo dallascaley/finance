@@ -16,6 +16,8 @@
 		<option value="monthly">Every Month</option>
 		<option value="weekdays">Weekdays Only</option>
 		<option value="weekends">Weekends Only</option>
+		<option value="annual">Annually</option>
+		<option value="semi-annual">Semi Annually</option>
 	</select>
 
 	<div class="depends" dependency="<?php echo $id ?>_frequency" value="bi-weekly,weekly">
@@ -63,3 +65,14 @@
 			?>
 		</select>
 	</div>
+
+	<div class="depends" dependency="<?php echo $id ?>_frequency" value="annual,semi-annual">
+		<label>Next Payment</label>
+		<input id="<?php echo $id ?>_date_1" type="datapicker"/>
+	</div>
+
+	<div class="depends" dependency="<?php echo $id ?>_frequency" value="semi-annual">
+		<label>Following Payment</label>
+		<input id="<?php echo $id ?>_date_2" type="datapicker"/>
+	</div>
+
