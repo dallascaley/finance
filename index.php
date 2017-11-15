@@ -29,6 +29,9 @@
 			<head>
 				<link rel="stylesheet" type="text/css" href="/tools/bootstrap/css/bootstrap.min.css">
 				<link rel="stylesheet" type="text/css" href="/css/global.css">
+				<link rel="stylesheet" type="text/css" href="/tools/jquery-ui-1.12.1.custom/jquery-ui.min.css">
+				<link rel="stylesheet" type="text/css" href="/tools/jquery-ui-1.12.1.custom/jquery-ui.structure.min.css">
+				<link rel="stylesheet" type="text/css" href="/tools/jquery-ui-1.12.1.custom/jquery-ui.theme.min.css">
 				<?php
 					$css_path = str_replace('.php', '.css', $full_path);
 					if (file_exists(__DIR__ . '/css' . $css_path)) {
@@ -36,7 +39,9 @@
 					}
 				?>
 
-				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+				<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+				<script src="/tools/jquery-ui-1.12.1.custom/external/jquery/jquery.js"></script>
+				<script src="/tools/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
 				<script src="/js/jquery.validate.min.js"></script>
 				<script src="/tools/jquery-validation-1.17.0/src/additional/currency.js"></script>
 				<script src="/tools/bootstrap/js/bootstrap.min.js"></script>

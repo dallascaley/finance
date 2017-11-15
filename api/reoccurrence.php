@@ -35,6 +35,28 @@ class reoccurrence extends apiAbstract {
 					];
 					$this->orm->create('dates', $params);
 				}
+				if (array_key_exists('date_1', $this->request->params)) {
+					$date_parts = explode('/', $this->request->params['date_1']);
+					$date = $date_parts[2] .'-'. $date_parts[0] .'-'. $date_parts[1];
+					$params = [
+						'reoccurrence' => $this->request->params['name'],
+						'username' => $session['username'],
+						'date' => $date,
+						'type' => $this->request->params['datetype']
+					];
+					$this->orm->create('dates', $params);
+				}
+				if (array_key_exists('date_2', $this->request->params)) {
+					$date_parts = explode('/', $this->request->params['date_2']);
+					$date = $date_parts[2] .'-'. $date_parts[0] .'-'. $date_parts[1];
+					$params = [
+						'reoccurrence' => $this->request->params['name'],
+						'username' => $session['username'],
+						'date' => $date,
+						'type' => $this->request->params['datetype']
+					];
+					$this->orm->create('dates', $params);
+				}
 				$this->response->message = 'Reoccurrence added';
 			} else {
 				$this->response->status = 'Fail';

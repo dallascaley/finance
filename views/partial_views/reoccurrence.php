@@ -68,11 +68,11 @@
 
 	<div class="depends" dependency="<?php echo $id ?>_frequency" value="annual,semi-annual">
 		<label>Next Payment</label>
-		<input id="<?php echo $id ?>_date_1" type="datapicker"/>
+		<input id="<?php echo $id ?>_date_1" type="text" class="datepicker"/>
 	</div>
 
 	<div class="depends" dependency="<?php echo $id ?>_frequency" value="semi-annual">
 		<label>Following Payment</label>
-		<input id="<?php echo $id ?>_date_2" type="datapicker"/>
+		<input id="<?php echo $id ?>_date_2" type="text" class="datepicker"/>
 	</div>
 
