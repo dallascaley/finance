@@ -148,6 +148,17 @@ $(document).ready(function() {
 		if ($('#income_frequency_day_2').is(':visible')) {
 			post_params.days.push($('#income_frequency_day_2').val());
 		}
+
+		if ($('#transaction_date_1').is(':visible')) {
+			post_params.date_1 = $('#income_frequency_date_1').val();
+			post_params.datetype = 'first';
+		}
+
+		if ($('#transaction_date_2').is(':visible')) {
+			post_params.date_2 = $('#income_frequency_date_2').val();
+			post_params.datetype = 'second';
+		}
+		
 		console.log(post_params);
 
 		$.post('/api/reoccurrence', post_params, function(response) {

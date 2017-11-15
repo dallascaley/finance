@@ -135,41 +135,45 @@ $(document).ready(function() {
 			}
 			if (show) {
 				var select = $(this).find('select');
-				if (select.attr('id').includes("_date")) {
-					select.empty();
-					var day = $('#' + select.attr('from')).val();
-					var d = new Date();
-					var today = d.getDay();
+				if (typeof select.attr('id') != 'undefined') {
+					if (select.attr('id').includes("_date")) {
+						select.empty();
+						var day = $('#' + select.attr('from')).val();
+						var d = new Date();
+						var today = d.getDay();
 
-					if (day < today) {
-						var interval = 7 - (today - day);
-					} else {
-						var interval = day - today;
+						if (day < today) {
+							var interval = 7 - (today - day);
+						} else {
+							var interval = day - today;
+						}
+						var nextTimestamp = Date.now() + (interval * 86400000);
+						var dnext = new Date(nextTimestamp);
+						var nextDay = dnext.getFullYear() + '-' + ('0' + (dnext.getMonth() + 1)).slice(-2) + '-' + ('0' + dnext.getDate()).slice(-2);
+						var nextDisplayDay = getMonthFromJSMonthnum(dnext.getMonth()) + ' ' + jsNth(dnext.getDate());
+
+						var followingTimestamp = Date.now() + ((interval + 7) * 86400000);
+						var dfollowing = new Date(followingTimestamp);
+						var followingDay = dfollowing.getFullYear() + '-' + ('0' + (dfollowing.getMonth() + 1)).slice(-2) + '-' + ('0' + dfollowing.getDate()).slice(-2);
+						var followingDisplayDay = getMonthFromJSMonthnum(dfollowing.getMonth()) + ' ' + jsNth(dfollowing.getDate());
+
+						switch (true) {
+							case (today == day):
+								select.append('<option value="' + nextDay + '">Today ' + nextDisplayDay + '</option');
+								select.append('<option value="' + followingDay + '">Next ' + getDayFromJSDaynum(day) + ' ' + followingDisplayDay + '</option');
+							break;
+							case (today == (day - 1)):
+								select.append('<option value="' + nextDay + '">Tomorrow ' + nextDisplayDay + '</option');
+								select.append('<option value="' + followingDay + '">The Following ' + getDayFromJSDaynum(day) + ' ' + followingDisplayDay + '</option');
+							break;
+							default:
+								select.append('<option value="' + nextDay + '">This ' + getDayFromJSDaynum(day) + ' ' + nextDisplayDay + '</option>');
+								select.append('<option value="' + followingDay + '">The Following ' + getDayFromJSDaynum(day) + ' ' + followingDisplayDay + '</option');
+							break;
+						}
 					}
-					var nextTimestamp = Date.now() + (interval * 86400000);
-					var dnext = new Date(nextTimestamp);
-					var nextDay = dnext.getFullYear() + '-' + ('0' + (dnext.getMonth() + 1)).slice(-2) + '-' + ('0' + dnext.getDate()).slice(-2);
-					var nextDisplayDay = getMonthFromJSMonthnum(dnext.getMonth()) + ' ' + jsNth(dnext.getDate());
-
-					var followingTimestamp = Date.now() + ((interval + 7) * 86400000);
-					var dfollowing = new Date(followingTimestamp);
-					var followingDay = dfollowing.getFullYear() + '-' + ('0' + (dfollowing.getMonth() + 1)).slice(-2) + '-' + ('0' + dfollowing.getDate()).slice(-2);
-					var followingDisplayDay = getMonthFromJSMonthnum(dfollowing.getMonth()) + ' ' + jsNth(dfollowing.getDate());
-
-					switch (true) {
-						case (today == day):
-							select.append('<option value="' + nextDay + '">Today ' + nextDisplayDay + '</option');
-							select.append('<option value="' + followingDay + '">Next ' + getDayFromJSDaynum(day) + ' ' + followingDisplayDay + '</option');
-						break;
-						case (today == (day - 1)):
-							select.append('<option value="' + nextDay + '">Tomorrow ' + nextDisplayDay + '</option');
-							select.append('<option value="' + followingDay + '">The Following ' + getDayFromJSDaynum(day) + ' ' + followingDisplayDay + '</option');
-						break;
-						default:
-							select.append('<option value="' + nextDay + '">This ' + getDayFromJSDaynum(day) + ' ' + nextDisplayDay + '</option>');
-							select.append('<option value="' + followingDay + '">The Following ' + getDayFromJSDaynum(day) + ' ' + followingDisplayDay + '</option');
-						break;
-					}
+				} else {
+					//do we need to do anything here?
 				}
 				$(this).show();
 			} else {
@@ -177,5 +181,7 @@ $(document).ready(function() {
 			}
 		});
 	});
+
+	$('.datepicker').datepicker();
 
 });
